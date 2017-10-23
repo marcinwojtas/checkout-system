@@ -10,8 +10,6 @@ import java.util.HashMap;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        Item item = new Item("1", new HashMap<>());
-        item.getName();
         SpringApplication.run(Application.class, args);
     }
 }

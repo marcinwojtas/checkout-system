@@ -1,15 +1,14 @@
 package com.pragmaticcoders.checkout.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
+@EqualsAndHashCode
 public class Item {
 
     @Id
@@ -19,22 +18,23 @@ public class Item {
     @Getter
     private String name;
 
-    private Map<Integer, Integer> priceList;
+    private List<Price> prices;
 
     protected Item() {
     }
 
-    public Item(UUID id, String name, Map<Integer, Integer> priceList) {
-        this.id = id;
+    public Item(UUID uuid, String name, List<Price> prices) {
+        this.id = uuid;
         this.name = name;
-        this.priceList = new HashMap<>(priceList);
+        this.prices = prices;
     }
 
     public Integer getPrice(Integer quantity) {
+        // TODO
         return quantity * 10;
     }
 
-    public Map<Integer, Integer> getPriceList() {
-        return Collections.unmodifiableMap(priceList);
+    public List<Price> getPriceList() {
+        return Collections.unmodifiableList(prices);
     }
 }

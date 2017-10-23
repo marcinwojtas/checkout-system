@@ -1,8 +1,9 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: 'update'
-  datasource:
-    url: 'jdbc:mysql://localhost:3306/checkout'
-    username: 'user'
-    password: 'pass'
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  profiles:
+    active: dev
+mongo:
+  host: localhost
+  port: 27017
+  database: checkout

@@ -1,18 +1,23 @@
 package com.pragmaticcoders.checkout.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 
-@Entity(name = "promotions")
+@Entity
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Promotion {
 
     @Id
     @Getter
-    private Integer id;
+    private UUID id;
 
     private Set<Item> items;
 
@@ -20,11 +25,6 @@ public class Promotion {
     private Integer discount;
 
     protected Promotion() {
-    }
-
-    public Promotion(Set<Item> items, Integer discount) {
-        this.items = items;
-        this.discount = discount;
     }
 
     public Set<Item> getItems() {

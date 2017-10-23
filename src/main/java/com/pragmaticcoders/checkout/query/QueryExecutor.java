@@ -9,7 +9,7 @@ public interface QueryExecutor<T extends Query, S> {
 
     default boolean canExecute(T query) {
         Class executorType = GenericTypeResolver
-            .resolveTypeArgument(getClass(), QueryExecutor.class);
+            .resolveTypeArguments(getClass(), QueryExecutor.class)[0];
 
         return executorType == query.getClass();
     }
