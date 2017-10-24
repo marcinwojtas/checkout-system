@@ -1,20 +1,18 @@
 package com.pragmaticcoders.checkout.repository;
 
-import com.pragmaticcoders.checkout.domain.Item;
 import com.pragmaticcoders.checkout.domain.Order;
-import com.pragmaticcoders.checkout.domain.Price;
-import com.pragmaticcoders.checkout.domain.Promotion;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class OrderMorphiaRepositoryTest extends RepositoryTestCase{
+public class OrderMorphiaRepositoryTest extends RepositoryTestCase {
     private OrderMorphiaRepository repository;
 
     @Before

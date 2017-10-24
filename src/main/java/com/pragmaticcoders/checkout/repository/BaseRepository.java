@@ -5,6 +5,8 @@ import java.util.UUID;
 
 public interface BaseRepository<T> {
     void save(T item);
+
     T findOne(UUID uuid);
+
     List<T> findAll();
 }

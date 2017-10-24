@@ -4,9 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class CommandBusTest {
 
@@ -20,7 +18,7 @@ public class CommandBusTest {
     }
 
     @Test
-    public void testExecute() throws Exception{
+    public void testExecute() throws Exception {
         CommandExecutor executor1 = mock(CommandExecutor.class);
         CommandExecutor executor2 = mock(CommandExecutor.class);
         CommandExecutor executor3 = mock(CommandExecutor.class);
@@ -38,7 +36,7 @@ public class CommandBusTest {
     }
 
     @Test(expected = Exception.class)
-    public void testExecuteThrowException() throws Exception{
+    public void testExecuteThrowException() throws Exception {
         CommandExecutor executor1 = mock(CommandExecutor.class);
         CommandExecutor executor2 = mock(CommandExecutor.class);
 

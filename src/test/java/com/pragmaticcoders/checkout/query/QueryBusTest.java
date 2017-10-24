@@ -1,18 +1,13 @@
 package com.pragmaticcoders.checkout.query;
 
-import com.pragmaticcoders.checkout.command.CommandExecutor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.xml.ws.Response;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 public class QueryBusTest {
 
@@ -26,7 +21,7 @@ public class QueryBusTest {
     }
 
     @Test
-    public void testExecute() throws Exception{
+    public void testExecute() throws Exception {
         QueryExecutor executor1 = mock(QueryExecutor.class);
         QueryExecutor executor2 = mock(QueryExecutor.class);
         QueryExecutor executor3 = mock(QueryExecutor.class);
@@ -48,7 +43,7 @@ public class QueryBusTest {
     }
 
     @Test(expected = Exception.class)
-    public void testExecuteThrowException() throws Exception{
+    public void testExecuteThrowException() throws Exception {
         QueryExecutor executor1 = mock(QueryExecutor.class);
         QueryExecutor executor2 = mock(QueryExecutor.class);
 

@@ -1,7 +1,6 @@
 package com.pragmaticcoders.checkout.repository;
 
 import com.mongodb.client.MongoDatabase;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public abstract class RepositoryTestCase {
     protected void clearDb() {
         MongoDatabase db = datastore.getMongo().getDatabase("fongo_db");
 
-        for(String collection : db.listCollectionNames()) {
+        for (String collection : db.listCollectionNames()) {
             db.getCollection(collection).drop();
         }
     }

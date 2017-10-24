@@ -10,9 +10,8 @@ import java.util.*;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
-public class PromotionMorphiaRepositoryTest extends RepositoryTestCase{
+public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
 
     private PromotionMorphiaRepository repository;
 
@@ -99,7 +98,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase{
             UUID.randomUUID(),
             "foo",
             new ArrayList<Price>() {{
-                add(new Price(1,1));
+                add(new Price(1, 1));
             }}
         );
     }

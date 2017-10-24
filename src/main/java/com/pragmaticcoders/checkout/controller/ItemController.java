@@ -1,7 +1,7 @@
 package com.pragmaticcoders.checkout.controller;
 
-import com.pragmaticcoders.checkout.command.item.AddItemCommand;
 import com.pragmaticcoders.checkout.command.CommandRunner;
+import com.pragmaticcoders.checkout.command.item.AddItemCommand;
 import com.pragmaticcoders.checkout.dto.ItemDto;
 import com.pragmaticcoders.checkout.query.QueryRunner;
 import com.pragmaticcoders.checkout.query.item.ListItemQuery;
@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class ItemController {
