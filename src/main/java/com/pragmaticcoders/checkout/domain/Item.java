@@ -1,7 +1,6 @@
 package com.pragmaticcoders.checkout.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -9,6 +8,8 @@ import java.util.*;
 
 @Entity
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Item {
 
     @Id
@@ -20,21 +21,13 @@ public class Item {
 
     private List<Price> prices;
 
-    protected Item() {
-    }
-
-    public Item(UUID uuid, String name, List<Price> prices) {
-        this.id = uuid;
-        this.name = name;
-        this.prices = prices;
-    }
-
+    // not here, probably
     public Integer getPrice(Integer quantity) {
         // TODO
         return quantity * 10;
     }
 
-    public List<Price> getPriceList() {
+    public List<Price> getPrices() {
         return Collections.unmodifiableList(prices);
     }
 }

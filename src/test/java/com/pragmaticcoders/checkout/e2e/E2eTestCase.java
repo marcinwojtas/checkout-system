@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -32,7 +31,6 @@ public abstract class E2eTestCase {
     @Before
     public void setUp() {
         clearDb();
-
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 

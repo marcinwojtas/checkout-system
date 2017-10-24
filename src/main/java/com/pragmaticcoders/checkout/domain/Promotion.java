@@ -1,8 +1,6 @@
 package com.pragmaticcoders.checkout.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -13,6 +11,7 @@ import java.util.UUID;
 @Entity
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Promotion {
 
     @Id
@@ -23,9 +22,6 @@ public class Promotion {
 
     @Getter
     private Integer discount;
-
-    protected Promotion() {
-    }
 
     public Set<Item> getItems() {
         return Collections.unmodifiableSet(items);

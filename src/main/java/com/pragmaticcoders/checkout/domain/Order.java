@@ -1,7 +1,6 @@
 package com.pragmaticcoders.checkout.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -12,7 +11,12 @@ import java.util.UUID;
 
 @Entity
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
+
+    public enum Status {
+        ORDERING, PAYMENT
+    }
 
     @Id
     @Getter
@@ -24,6 +28,9 @@ public class Order {
     private Integer price;
 
     private Set<Promotion> promotions;
+
+    @Getter
+    private Status status = Status.ORDERING;
 
     public Order(UUID id, Map<Integer, Item> items, Set<Promotion> promotions) {
         this.id = id;
@@ -56,5 +63,10 @@ public class Order {
         }
 
         this.price = price;
+    }
+
+    public void pay() {
+        calculate();
+        status = Status.PAYMENT;
     }
 }

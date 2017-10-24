@@ -29,7 +29,7 @@ public class SingleItemQueryExecutor implements QueryExecutor<SingleItemQuery, I
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<PriceDto> prices = item.getPriceList()
+        List<PriceDto> prices = item.getPrices()
             .stream()
             .map(price -> new PriceDto(price.getQuantity(), price.getPrice()))
             .collect(Collectors.toList());

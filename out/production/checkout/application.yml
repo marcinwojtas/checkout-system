@@ -1,0 +1,9 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  profiles:
+    active: dev
+mongo:
+  host: localhost
+  port: 27017
+  database: checkout

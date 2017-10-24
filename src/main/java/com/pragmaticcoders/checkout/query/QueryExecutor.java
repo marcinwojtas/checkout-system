@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 public interface QueryExecutor<T extends Query, S> {
     ResponseEntity<S> execute(T query, HttpStatus validStatus);
 
-    default boolean canExecute(T query) {
+    default boolean canExecute(Query query) {
         Class executorType = GenericTypeResolver
             .resolveTypeArguments(getClass(), QueryExecutor.class)[0];
 

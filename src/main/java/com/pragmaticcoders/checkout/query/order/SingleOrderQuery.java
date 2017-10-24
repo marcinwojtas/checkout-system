@@ -1,4 +1,4 @@
-package com.pragmaticcoders.checkout.query.item;
+package com.pragmaticcoders.checkout.query.order;
 
 import com.pragmaticcoders.checkout.query.Query;
 import lombok.AllArgsConstructor;
@@ -6,8 +6,8 @@ import lombok.Getter;
 
 import java.util.UUID;
 
-@Getter
 @AllArgsConstructor
-public class ItemQuery implements Query {
-    private final UUID id;
+@Getter
+public class SingleOrderQuery implements Query {
+    private UUID id;
 }

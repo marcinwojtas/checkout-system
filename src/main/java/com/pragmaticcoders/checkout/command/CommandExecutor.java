@@ -6,7 +6,7 @@ public interface CommandExecutor<T extends Command> {
 
     void execute(T command);
 
-    default boolean canExecute(T command) {
+    default boolean canExecute(Command command) {
         Class executorType = GenericTypeResolver
             .resolveTypeArgument(getClass(), CommandExecutor.class);
 

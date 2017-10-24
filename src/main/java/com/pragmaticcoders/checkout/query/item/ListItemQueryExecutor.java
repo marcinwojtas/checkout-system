@@ -31,7 +31,7 @@ public class ListItemQueryExecutor implements QueryExecutor<ListItemQuery, List<
             .map(item -> new ItemDto(
                 item.getId(),
                 item.getName(),
-                item.getPriceList().stream()
+                item.getPrices().stream()
                     .map(price -> new PriceDto(price.getQuantity(), price.getPrice()))
                     .collect(Collectors.toList())))
             .collect(Collectors.toList());

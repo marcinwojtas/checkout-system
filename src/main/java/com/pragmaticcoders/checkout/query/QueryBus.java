@@ -5,15 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class QueryBus {
-    private Set<QueryExecutor> executors;
+    private List<QueryExecutor> executors = new ArrayList<>();
 
     @Autowired
-    public QueryBus(Set<QueryExecutor> executors) {
-        this.executors = executors;
+    public void registerExecutors(QueryExecutor[] executors) {
+        this.executors.addAll(Arrays.asList(executors));
     }
 
     ResponseEntity execute(Query query, HttpStatus validResponseCode) throws Exception {
