@@ -43,10 +43,7 @@ public class OrderControllerTest extends E2eTestCase {
             .andExpect(status().is(HttpStatus.CREATED.value()))
             .andExpect(jsonPath("$.total_price").value(18))
             .andExpect(jsonPath("$.discount").value(2))
-            .andExpect(jsonPath("$.items[0].quantity").value(1))
-            .andExpect(jsonPath("$.items[0].price").value(10))
-            .andExpect(jsonPath("$.items[1].quantity").value(2))
-            .andExpect(jsonPath("$.items[1].price").value(10))
+            .andExpect(jsonPath("$.items.length()").value(2))
             .andExpect(jsonPath("$.status").value("ORDERING"))
             .andReturn()
             .getResponse()
@@ -58,10 +55,7 @@ public class OrderControllerTest extends E2eTestCase {
             .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(jsonPath("$.total_price").value(18))
             .andExpect(jsonPath("$.discount").value(2))
-            .andExpect(jsonPath("$.items[0].quantity").value(1))
-            .andExpect(jsonPath("$.items[0].price").value(10))
-            .andExpect(jsonPath("$.items[1].quantity").value(2))
-            .andExpect(jsonPath("$.items[1].price").value(10))
+            .andExpect(jsonPath("$.items.length()").value(2))
             .andExpect(jsonPath("$.status").value("ORDERING"));
     }
 
@@ -103,11 +97,8 @@ public class OrderControllerTest extends E2eTestCase {
             put(uuid3.toString(), 5);
         }}).andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(jsonPath("$.total_price").value(37))
+            .andExpect(jsonPath("$.items.length()").value(2))
             .andExpect(jsonPath("$.discount").value(0))
-            .andExpect(jsonPath("$.items[0].quantity").value(5))
-            .andExpect(jsonPath("$.items[0].price").value(27))
-            .andExpect(jsonPath("$.items[1].quantity").value(2))
-            .andExpect(jsonPath("$.items[1].price").value(10))
             .andExpect(jsonPath("$.status").value("ORDERING"));
     }
 
@@ -142,6 +133,7 @@ public class OrderControllerTest extends E2eTestCase {
             .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(jsonPath("$.total_price").value(10))
             .andExpect(jsonPath("$.discount").value(0))
+            .andExpect(jsonPath("$.items.length()").value(1))
             .andExpect(jsonPath("$.items[0].quantity").value(1))
             .andExpect(jsonPath("$.items[0].price").value(10))
             .andExpect(jsonPath("$.status").value("PAYMENT"));
