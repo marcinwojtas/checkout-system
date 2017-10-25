@@ -109,7 +109,6 @@ public class AddOrderCommandExecutorTest {
         assertEquals(uuid, order.getId());
         assertEquals(Order.Status.ORDERING, order.getStatus());
         assertEquals(order.getItems().size(), 2);
-        assertTrue(order.getPromotions().contains(promotion));
         assertEquals(order.getPrice(), Integer.valueOf(23));
     }
 }

@@ -84,7 +84,7 @@ public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand>
             .collect(Collectors.toSet());
 
         matchedPromotions = allPromotions.stream()
-            .filter(promotion -> allPromotions.containsAll(items))
+            .filter(promotion -> promotion.getItems().containsAll(items))
             .collect(Collectors.toSet());
 
         return matchedPromotions;

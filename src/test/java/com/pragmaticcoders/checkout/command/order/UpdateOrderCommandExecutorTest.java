@@ -117,7 +117,6 @@ public class UpdateOrderCommandExecutorTest {
         assertEquals(uuid, result.getId());
         assertEquals(Order.Status.ORDERING, result.getStatus());
         assertEquals(result.getItems().size(), 2);
-        assertTrue(result.getPromotions().contains(promotion));
         assertEquals(result.getPrice(), Integer.valueOf(23));
     }
 }

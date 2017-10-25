@@ -89,7 +89,7 @@ public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCo
             .collect(Collectors.toSet());
 
         matchedPromotions = allPromotions.stream()
-            .filter(promotion -> allPromotions.containsAll(items))
+            .filter(promotion -> promotion.getItems().containsAll(items))
             .collect(Collectors.toSet());
 
         return matchedPromotions;
