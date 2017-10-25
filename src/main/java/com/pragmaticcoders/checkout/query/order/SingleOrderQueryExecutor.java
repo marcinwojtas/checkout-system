@@ -32,7 +32,7 @@ public class SingleOrderQueryExecutor implements QueryExecutor<SingleOrderQuery,
                 item.getItem().getId(),
                 item.getQuantity(),
                 item.getItem().getName(),
-                item.getCost()
+                item.getTotalCost()
             ))
             .collect(Collectors.toList());
 

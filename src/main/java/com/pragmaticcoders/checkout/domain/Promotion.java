@@ -5,6 +5,7 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,6 +25,6 @@ public class Promotion {
     private Integer discount;
 
     public Set<Item> getItems() {
-        return Collections.unmodifiableSet(items);
+        return new HashSet<>(items);
     }
 }

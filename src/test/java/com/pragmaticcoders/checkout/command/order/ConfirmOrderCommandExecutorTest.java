@@ -31,7 +31,7 @@ public class ConfirmOrderCommandExecutorTest {
     private ConfirmOrderCommandExecutor executor;
 
     @Test
-    public void confirmOrderTest() {
+    public void confirmOrderTest() throws Exception {
         UUID uuid = UUID.randomUUID();
         ConfirmOrderCommand command = new ConfirmOrderCommand(uuid);
 

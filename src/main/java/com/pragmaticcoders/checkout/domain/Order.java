@@ -18,17 +18,17 @@ public class Order {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class Item {
+    public static class OrderItem {
         private Integer quantity;
-        private com.pragmaticcoders.checkout.domain.Item item;
-        private Integer cost;
+        private Item item;
+        private Integer totalCost;
     }
 
     @Id
     @Getter
     private UUID id;
 
-    private List<Item> items;
+    private List<OrderItem> items;
 
     @Getter
     private Integer price;
@@ -38,37 +38,45 @@ public class Order {
     @Getter
     private Status status = Status.ORDERING;
 
-    public Order(UUID id, List<Order.Item> items, Set<Promotion> promotions) {
+    public Order(UUID id, List<OrderItem> items, Set<Promotion> promotions) {
         this.id = id;
-        this.items = items;
-        this.promotions = promotions;
+        this.items = new ArrayList<>(items);
+        this.promotions = new HashSet<>(promotions);
 
         calculate();
     }
 
-    public List<Item> getItems() {
-        return Collections.unmodifiableList(items);
+    public List<OrderItem> getItems() {
+        return new ArrayList<>(items);
     }
 
-    public void setItems(List<Order.Item> items) {
+    public void setItems(List<OrderItem> items) throws CannotChangeOrderException {
+        if (status != Status.ORDERING) {
+            throw new CannotChangeOrderException();
+        }
+
         this.items = new ArrayList<>(items);
         calculate();
     }
 
-    public void setPromotions(Set<Promotion> promotions) {
+    public void setPromotions(Set<Promotion> promotions) throws CannotChangeOrderException {
+        if (status != Status.ORDERING) {
+            throw new CannotChangeOrderException();
+        }
+
         this.promotions = new HashSet<>(promotions);
         calculate();
     }
 
     public Set<Promotion> getPromotions() {
-        return Collections.unmodifiableSet(promotions);
+        return new HashSet<>(promotions);
     }
 
-    public void calculate() {
+    private void calculate() {
         Integer price = 0;
 
-        for (Order.Item item : items) {
-            price += item.getCost();
+        for (OrderItem item : items) {
+            price += item.getTotalCost();
         }
 
         for (Promotion promotion : promotions) {
@@ -78,8 +86,11 @@ public class Order {
         this.price = price;
     }
 
-    public void confirm() {
-        // todo validation if confirmed
+    public void confirm() throws CannotChangeOrderException {
+        if (status == Status.PAYMENT) {
+            throw new CannotChangeOrderException();
+        }
+
         calculate();
         status = Status.PAYMENT;
     }

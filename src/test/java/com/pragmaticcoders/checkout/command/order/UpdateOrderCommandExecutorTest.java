@@ -80,8 +80,8 @@ public class UpdateOrderCommandExecutorTest {
 
         Order order = new Order(
             uuid,
-            new ArrayList<Order.Item>() {{
-                add(mock(Order.Item.class));
+            new ArrayList<Order.OrderItem>() {{
+                add(mock(Order.OrderItem.class));
             }},
             new HashSet<>()
         );

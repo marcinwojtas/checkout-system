@@ -19,7 +19,7 @@ public class ConfirmOrderCommandExecutor implements CommandExecutor<ConfirmOrder
     }
 
     @Override
-    public void execute(ConfirmOrderCommand command) {
+    public void execute(ConfirmOrderCommand command) throws Exception {
         UUID uuid = command.getId();
         Order order = repository.findOne(uuid);
         order.confirm();

@@ -49,7 +49,7 @@ public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCo
             throw new Exception();
         }
 
-        List<Order.Item> orderItems = new ArrayList<>();
+        List<Order.OrderItem> orderItems = new ArrayList<>();
         for (Item item : items) {
 
             OrderDto.Item itemDto = dto.getItems()
@@ -59,7 +59,7 @@ public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCo
                 .orElseThrow(Exception::new);
 
             orderItems.add(
-                new Order.Item(
+                new Order.OrderItem(
                     itemDto.getQuantity(),
                     item,
                     priceCalculator.calcCostOfItem(item, itemDto.getQuantity())
