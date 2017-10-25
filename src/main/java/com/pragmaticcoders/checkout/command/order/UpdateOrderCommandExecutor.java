@@ -16,25 +16,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand> {
+public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCommand> {
 
-    private OrderRepository orderRepository;
     private ItemRepository itemRepository;
+    private OrderRepository repository;
     private PromotionRepository promotionRepository;
     private PriceCalculator priceCalculator;
 
     @Autowired
-    public AddOrderCommandExecutor(OrderRepository orderRepository, ItemRepository itemRepository, PromotionRepository promotionRepository, PriceCalculator priceCalculator) {
-        this.orderRepository = orderRepository;
+    public UpdateOrderCommandExecutor(ItemRepository itemRepository, OrderRepository repository, PromotionRepository promotionRepository, PriceCalculator priceCalculator) {
         this.itemRepository = itemRepository;
+        this.repository = repository;
         this.promotionRepository = promotionRepository;
         this.priceCalculator = priceCalculator;
     }
 
     @Override
-    public void execute(AddOrderCommand command) throws Exception {
+    public void execute(UpdateOrderCommand command) throws Exception {
         UUID uuid = command.getId();
         OrderDto dto = command.getDto();
+
+        Order order = repository.findOne(uuid);
 
         Set<UUID> uuids = dto.getItems()
             .stream()
@@ -48,9 +50,10 @@ public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand>
         }
 
         List<Order.Item> orderItems = new ArrayList<>();
-
         for (Item item : items) {
-            OrderDto.Item itemDto = dto.getItems().stream()
+
+            OrderDto.Item itemDto = dto.getItems()
+                .stream()
                 .filter(item1 -> item1.getId().equals(item.getId().toString()))
                 .findFirst()
                 .orElseThrow(Exception::new);
@@ -64,8 +67,10 @@ public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand>
             );
         }
 
-        Order order = new Order(uuid, orderItems, getActivePromotions());
-        orderRepository.save(order);
+        order.setItems(orderItems);
+        order.setPromotions(getActivePromotions());
+
+        repository.save(order);
     }
 
     private boolean ifAllItemsAreIn(Collection<Item> items, Collection<UUID> uuids) {

@@ -23,12 +23,6 @@ public class Item {
 
     private List<Price> prices;
 
-    // not here, probably
-    public Integer getPrice(Integer quantity) {
-        // TODO
-        return quantity * 10;
-    }
-
     public List<Price> getPrices() {
         return Collections.unmodifiableList(prices);
     }

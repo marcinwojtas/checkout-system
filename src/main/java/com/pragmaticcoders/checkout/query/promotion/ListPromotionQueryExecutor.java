@@ -2,7 +2,7 @@ package com.pragmaticcoders.checkout.query.promotion;
 
 import com.pragmaticcoders.checkout.domain.Item;
 import com.pragmaticcoders.checkout.domain.Promotion;
-import com.pragmaticcoders.checkout.dto.PromotionDto;
+import com.pragmaticcoders.checkout.view.PromotionView;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ListPromotionQueryExecutor implements QueryExecutor<ListPromotionQuery, List<PromotionDto>> {
+public class ListPromotionQueryExecutor implements QueryExecutor<ListPromotionQuery, List<PromotionView>> {
 
     private PromotionRepository repository;
 
@@ -24,10 +24,10 @@ public class ListPromotionQueryExecutor implements QueryExecutor<ListPromotionQu
     }
 
     @Override
-    public ResponseEntity<List<PromotionDto>> execute(ListPromotionQuery query, HttpStatus validStatus) {
+    public ResponseEntity<List<PromotionView>> execute(ListPromotionQuery query, HttpStatus validStatus) {
         List<Promotion> promotions = repository.findAll();
-        List<PromotionDto> promotionDtos = promotions.stream()
-            .map(promotion -> new PromotionDto(
+        List<PromotionView> promotionDtos = promotions.stream()
+            .map(promotion -> new PromotionView(
                 promotion.getId(),
                 promotion.getItems().stream()
                     .map(Item::getId)
@@ -35,6 +35,6 @@ public class ListPromotionQueryExecutor implements QueryExecutor<ListPromotionQu
                 promotion.getDiscount()
             )).collect(Collectors.toList());
 
-        return new ResponseEntity<List<PromotionDto>>(promotionDtos, validStatus);
+        return new ResponseEntity<>(promotionDtos, validStatus);
     }
 }

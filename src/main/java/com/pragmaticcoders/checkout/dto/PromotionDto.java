@@ -8,11 +8,10 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class PromotionDto {
-    private UUID id;
     private Set<UUID> items;
     private Integer discount;
 }

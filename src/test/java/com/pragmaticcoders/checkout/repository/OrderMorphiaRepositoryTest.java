@@ -4,7 +4,7 @@ import com.pragmaticcoders.checkout.domain.Order;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
@@ -24,17 +24,16 @@ public class OrderMorphiaRepositoryTest extends RepositoryTestCase {
     @Test
     public void testCreate() throws Exception {
         UUID uuid = UUID.randomUUID();
-        repository.save(new Order(uuid, new HashMap<>(), new HashSet<>()));
+        repository.save(new Order(uuid, new ArrayList<>(), new HashSet<>()));
 
         Order result = datastore.get(Order.class, uuid);
-
         assertEquals(uuid, result.getId());
     }
 
     @Test
     public void testGetOne() throws Exception {
         UUID uuid = UUID.randomUUID();
-        datastore.save(new Order(uuid, new HashMap<>(), new HashSet<>()));
+        datastore.save(new Order(uuid, new ArrayList<>(), new HashSet<>()));
 
         Order result = repository.findOne(uuid);
 
@@ -44,13 +43,11 @@ public class OrderMorphiaRepositoryTest extends RepositoryTestCase {
     @Test
     public void testFindAll() throws Exception {
         UUID uuid1 = UUID.randomUUID();
-        datastore.save(new Order(uuid1, new HashMap<>(), new HashSet<>()));
-
+        datastore.save(new Order(uuid1, new ArrayList<>(), new HashSet<>()));
         UUID uuid2 = UUID.randomUUID();
-        datastore.save(new Order(uuid2, new HashMap<>(), new HashSet<>()));
+        datastore.save(new Order(uuid2, new ArrayList<>(), new HashSet<>()));
 
         List<Order> items = repository.findAll();
-
         assertEquals(2, items.size());
     }
 

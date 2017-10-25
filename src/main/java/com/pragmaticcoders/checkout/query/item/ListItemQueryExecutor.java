@@ -1,8 +1,7 @@
 package com.pragmaticcoders.checkout.query.item;
 
+import com.pragmaticcoders.checkout.view.ItemView;
 import com.pragmaticcoders.checkout.domain.Item;
-import com.pragmaticcoders.checkout.dto.ItemDto;
-import com.pragmaticcoders.checkout.dto.PriceDto;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ListItemQueryExecutor implements QueryExecutor<ListItemQuery, List<ItemDto>> {
+public class ListItemQueryExecutor implements QueryExecutor<ListItemQuery, List<ItemView>> {
 
     private ItemRepository repository;
 
@@ -24,18 +23,18 @@ public class ListItemQueryExecutor implements QueryExecutor<ListItemQuery, List<
     }
 
     @Override
-    public ResponseEntity<List<ItemDto>> execute(ListItemQuery query, HttpStatus validStatus) {
+    public ResponseEntity<List<ItemView>> execute(ListItemQuery query, HttpStatus validStatus) {
         List<Item> items = repository.findAll();
 
-        List<ItemDto> itemDtos = items.stream()
-            .map(item -> new ItemDto(
+        List<ItemView> views = items.stream()
+            .map(item -> new ItemView(
                 item.getId(),
                 item.getName(),
                 item.getPrices().stream()
-                    .map(price -> new PriceDto(price.getQuantity(), price.getPrice()))
+                    .map(price -> new ItemView.Price(price.getQuantity(), price.getPrice()))
                     .collect(Collectors.toList())))
             .collect(Collectors.toList());
 
-        return new ResponseEntity<List<ItemDto>>(itemDtos, validStatus);
+        return new ResponseEntity<>(views, validStatus);
     }
 }

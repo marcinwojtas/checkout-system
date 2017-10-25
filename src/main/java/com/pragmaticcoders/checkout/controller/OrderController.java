@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static com.pragmaticcoders.checkout.controller.ItemController.UUID_REGEX;
+
 @RestController
 public class OrderController {
 
@@ -34,22 +36,22 @@ public class OrderController {
         return queryRunner.run(new SingleOrderQuery(uuid), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/{id:" + UUID_REGEX + "}", method = RequestMethod.GET)
     public ResponseEntity getOrder(@PathVariable UUID id) throws Exception {
         return queryRunner.run(new SingleOrderQuery(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/order/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody OrderDto dto, @PathVariable UUID uuid) throws Exception {
-        commandRunner.run(new UpdateOrderCommand(uuid, dto));
+    @RequestMapping(value = "/order/{id:" + UUID_REGEX + "}", method = RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody OrderDto dto, @PathVariable UUID id) throws Exception {
+        commandRunner.run(new UpdateOrderCommand(id, dto));
 
-        return queryRunner.run(new SingleOrderQuery(uuid), HttpStatus.OK);
+        return queryRunner.run(new SingleOrderQuery(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/order/{id}/confirm", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable UUID uuid) throws Exception {
-        commandRunner.run(new ConfirmOrderCommand(uuid));
+    @RequestMapping(value = "/order/{id:" + UUID_REGEX + "}/confirm", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable UUID id) throws Exception {
+        commandRunner.run(new ConfirmOrderCommand(id));
 
-        return queryRunner.run(new SingleOrderQuery(uuid), HttpStatus.OK);
+        return queryRunner.run(new SingleOrderQuery(id), HttpStatus.OK);
     }
 }

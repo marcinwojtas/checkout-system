@@ -1,19 +1,24 @@
-package com.pragmaticcoders.checkout.dto;
+package com.pragmaticcoders.checkout.view;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-public class ItemDto {
+public class ItemView {
+    private UUID id;
     private String name;
     private List<Price> prices;
 
+    @Getter
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    @Getter
     public static class Price {
         private Integer quantity;
         private Integer price;

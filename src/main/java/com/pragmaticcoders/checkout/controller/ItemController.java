@@ -22,6 +22,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class ItemController {
 
+    // todo move
+    public final static String UUID_REGEX = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
+
     private CommandRunner commandRunner;
     private QueryRunner queryRunner;
 
@@ -39,7 +42,7 @@ public class ItemController {
         return queryRunner.run(new SingleItemQuery(uuid), HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/item/{id}", method = GET)
+    @RequestMapping(path = "/item/{id:" + UUID_REGEX + "}", method = GET)
     public ResponseEntity findOne(@PathVariable UUID id) throws Exception {
         return queryRunner.run(new SingleItemQuery(id), HttpStatus.OK);
     }

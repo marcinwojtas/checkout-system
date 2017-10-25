@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter
 public class OrderDto {
     List<Item> items;
 

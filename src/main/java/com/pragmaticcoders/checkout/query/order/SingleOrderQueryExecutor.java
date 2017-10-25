@@ -1,6 +1,6 @@
 package com.pragmaticcoders.checkout.query.order;
 
-import com.pragmaticcoders.checkout.command.view.OrderView;
+import com.pragmaticcoders.checkout.view.OrderView;
 import com.pragmaticcoders.checkout.domain.Order;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.OrderRepository;
@@ -27,16 +27,14 @@ public class SingleOrderQueryExecutor implements QueryExecutor<SingleOrderQuery,
         Order order = orderRepository.findOne(query.getId());
 
         List<OrderView.Item> items = order.getItems()
-            .entrySet()
             .stream()
-            .map(
-                entry -> new OrderView.Item(
-                    entry.getValue().getId(),
-                    entry.getKey(),
-                    entry.getValue().getName(),
-                    entry.getValue().getPrice(entry.getKey())
-                )
-            ).collect(Collectors.toList());
+            .map(item -> new OrderView.Item(
+                item.getItem().getId(),
+                item.getQuantity(),
+                item.getItem().getName(),
+                item.getCost()
+            ))
+            .collect(Collectors.toList());
 
 
         OrderView view = new OrderView(

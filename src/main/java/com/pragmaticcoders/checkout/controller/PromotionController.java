@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+import static com.pragmaticcoders.checkout.controller.ItemController.UUID_REGEX;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -38,7 +39,7 @@ public class PromotionController {
         return queryRunner.run(new SinglePromotionQuery(uuid), HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/promotion/{id}", method = GET)
+    @RequestMapping(path = "/promotion/{id:" + UUID_REGEX + "}", method = GET)
     public ResponseEntity findOne(@PathVariable UUID id) throws Exception {
         return queryRunner.run(new SinglePromotionQuery(id), HttpStatus.OK);
     }

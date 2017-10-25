@@ -1,16 +1,10 @@
 package com.pragmaticcoders.checkout.domain;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @EqualsAndHashCode
@@ -21,21 +15,30 @@ public class Order {
         ORDERING, PAYMENT
     }
 
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class Item {
+        private Integer quantity;
+        private com.pragmaticcoders.checkout.domain.Item item;
+        private Integer cost;
+    }
+
     @Id
     @Getter
     private UUID id;
 
-    private Map<Integer, Item> items;
+    private List<Item> items;
 
     @Getter
     private Integer price;
 
-    private Set<Promotion> promotions;
+    private Set<Promotion> promotions = new HashSet<>();
 
     @Getter
     private Status status = Status.ORDERING;
 
-    public Order(UUID id, Map<Integer, Item> items, Set<Promotion> promotions) {
+    public Order(UUID id, List<Order.Item> items, Set<Promotion> promotions) {
         this.id = id;
         this.items = items;
         this.promotions = promotions;
@@ -43,8 +46,18 @@ public class Order {
         calculate();
     }
 
-    public Map<Integer, Item> getItems() {
-        return Collections.unmodifiableMap(items);
+    public List<Item> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
+    public void setItems(List<Order.Item> items) {
+        this.items = new ArrayList<>(items);
+        calculate();
+    }
+
+    public void setPromotions(Set<Promotion> promotions){
+        this.promotions = new HashSet<>(promotions);
+        calculate();
     }
 
     public Set<Promotion> getPromotions() {
@@ -54,11 +67,8 @@ public class Order {
     public void calculate() {
         Integer price = 0;
 
-        for (Map.Entry<Integer, Item> entry : items.entrySet()) {
-            Item item = entry.getValue();
-            Integer quantity = entry.getKey();
-
-            price += item.getPrice(quantity);
+        for (Order.Item item : items) {
+            price += item.getCost();
         }
 
         for (Promotion promotion : promotions) {
@@ -68,7 +78,8 @@ public class Order {
         this.price = price;
     }
 
-    public void pay() {
+    public void confirm() {
+        // todo validation if confirmed
         calculate();
         status = Status.PAYMENT;
     }

@@ -1,17 +1,14 @@
 package com.pragmaticcoders.checkout.e2e;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -81,6 +78,12 @@ public class ItemControllerTestCase extends E2eTestCase {
             .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
+    @Test
+    public void getWithInvalidIDTest() throws Exception {
+        getItem("invalid-uuid")
+            .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+    }
+
     private ResultActions getItem(String id) throws Exception {
         return mockMvc.perform(
             get("/item/" + id)
@@ -90,28 +93,6 @@ public class ItemControllerTestCase extends E2eTestCase {
     private ResultActions getList() throws Exception {
         return mockMvc.perform(
             get("/item")
-        );
-    }
-
-    private ResultActions addItem(String name, Map<Integer, Integer> prices) throws Exception {
-        JSONArray priceDtos = new JSONArray();
-
-        for (Map.Entry<Integer, Integer> entry : prices.entrySet()) {
-            priceDtos.put(
-                new JSONObject()
-                    .put("price", entry.getValue())
-                    .put("quantity", entry.getKey())
-            );
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", name);
-        jsonObject.put("prices", priceDtos);
-
-        return mockMvc.perform(
-            post("/item")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(jsonObject.toString())
         );
     }
 }

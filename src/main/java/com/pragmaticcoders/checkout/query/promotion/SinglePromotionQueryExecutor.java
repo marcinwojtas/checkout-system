@@ -2,7 +2,7 @@ package com.pragmaticcoders.checkout.query.promotion;
 
 import com.pragmaticcoders.checkout.domain.Item;
 import com.pragmaticcoders.checkout.domain.Promotion;
-import com.pragmaticcoders.checkout.dto.PromotionDto;
+import com.pragmaticcoders.checkout.view.PromotionView;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class SinglePromotionQueryExecutor implements QueryExecutor<SinglePromotionQuery, PromotionDto> {
+public class SinglePromotionQueryExecutor implements QueryExecutor<SinglePromotionQuery, PromotionView> {
 
     private PromotionRepository repository;
 
@@ -25,15 +25,19 @@ public class SinglePromotionQueryExecutor implements QueryExecutor<SinglePromoti
     }
 
     @Override
-    public ResponseEntity<PromotionDto> execute(SinglePromotionQuery query, HttpStatus validStatus) {
+    public ResponseEntity<PromotionView> execute(SinglePromotionQuery query, HttpStatus validStatus) {
         Promotion promotion = repository.findOne(query.getId());
+
+        if (promotion == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         Set<UUID> uuids = promotion.getItems()
             .stream()
             .map(Item::getId)
             .collect(Collectors.toSet());
 
-        PromotionDto dto = new PromotionDto(promotion.getId(), uuids, promotion.getDiscount());
+        PromotionView dto = new PromotionView(promotion.getId(), uuids, promotion.getDiscount());
 
         return new ResponseEntity<>(dto, validStatus);
     }

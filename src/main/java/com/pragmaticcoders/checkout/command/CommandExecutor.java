@@ -4,7 +4,7 @@ import org.springframework.core.GenericTypeResolver;
 
 public interface CommandExecutor<T extends Command> {
 
-    void execute(T command);
+    void execute(T command) throws Exception;
 
     default boolean canExecute(Command command) {
         Class executorType = GenericTypeResolver

@@ -13,7 +13,7 @@ public class AddPromotionCommandTest {
     @Test
     public void testCreateAndGet() {
         UUID uuid = UUID.randomUUID();
-        PromotionDto dto = new PromotionDto(UUID.randomUUID(), new HashSet<>(), 21);
+        PromotionDto dto = new PromotionDto(new HashSet<>(), 21);
 
         AddPromotionCommand command = new AddPromotionCommand(uuid, dto);
         assertEquals(uuid, command.getUuid());
