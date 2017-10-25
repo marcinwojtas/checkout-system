@@ -10,6 +10,7 @@ import com.pragmaticcoders.checkout.query.order.SingleOrderQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -17,19 +18,15 @@ import java.util.UUID;
 import static com.pragmaticcoders.checkout.controller.ItemController.UUID_REGEX;
 
 @RestController
-public class OrderController {
-
-    private final CommandRunner commandRunner;
-    private final QueryRunner queryRunner;
+public class OrderController extends BaseController {
 
     @Autowired
     public OrderController(CommandRunner commandRunner, QueryRunner queryRunner) {
-        this.commandRunner = commandRunner;
-        this.queryRunner = queryRunner;
+        super(commandRunner, queryRunner);
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    public ResponseEntity addOrder(@RequestBody OrderDto dto) throws Exception {
+    public ResponseEntity addOrder(@RequestBody @Validated OrderDto dto) throws Exception {
         UUID uuid = UUID.randomUUID();
         commandRunner.run(new AddOrderCommand(uuid, dto));
 
@@ -42,7 +39,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/order/{id:" + UUID_REGEX + "}", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody OrderDto dto, @PathVariable UUID id) throws Exception {
+    public ResponseEntity update(@RequestBody @Validated OrderDto dto, @PathVariable UUID id) throws Exception {
         commandRunner.run(new UpdateOrderCommand(id, dto));
 
         return queryRunner.run(new SingleOrderQuery(id), HttpStatus.OK);

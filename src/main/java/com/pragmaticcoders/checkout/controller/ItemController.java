@@ -9,6 +9,7 @@ import com.pragmaticcoders.checkout.query.item.SingleItemQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +21,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-public class ItemController {
-
-    // todo move
-    public final static String UUID_REGEX = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-
-    private final CommandRunner commandRunner;
-    private final QueryRunner queryRunner;
+public class ItemController extends BaseController {
 
     @Autowired
     public ItemController(CommandRunner commandRunner, QueryRunner queryRunner) {
-        this.commandRunner = commandRunner;
-        this.queryRunner = queryRunner;
+        super(commandRunner, queryRunner);
     }
 
     @RequestMapping(path = "/item", method = POST)
-    public ResponseEntity add(@RequestBody ItemDto dto) throws Exception {
+    public ResponseEntity add(@RequestBody @Validated ItemDto dto) throws Exception {
         UUID uuid = UUID.randomUUID();
         commandRunner.run(new AddItemCommand(uuid, dto));
 

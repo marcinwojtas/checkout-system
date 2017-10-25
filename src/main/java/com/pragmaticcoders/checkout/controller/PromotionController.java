@@ -9,6 +9,7 @@ import com.pragmaticcoders.checkout.query.promotion.SinglePromotionQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +22,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-public class PromotionController {
-    private final CommandRunner commandRunner;
-    private final QueryRunner queryRunner;
+public class PromotionController extends BaseController {
 
     @Autowired
     public PromotionController(CommandRunner commandRunner, QueryRunner queryRunner) {
-        this.commandRunner = commandRunner;
-        this.queryRunner = queryRunner;
+        super(commandRunner, queryRunner);
     }
 
     @RequestMapping(path = "/promotion", method = POST)
-    public ResponseEntity add(@RequestBody PromotionDto dto) throws Exception {
+    public ResponseEntity add(@RequestBody @Validated PromotionDto dto) throws Exception {
         UUID uuid = UUID.randomUUID();
         commandRunner.run(new AddPromotionCommand(uuid, dto));
 
