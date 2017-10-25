@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @Service
 public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand> {
 
-    private OrderRepository orderRepository;
-    private ItemRepository itemRepository;
-    private PromotionRepository promotionRepository;
-    private PriceCalculator priceCalculator;
+    private final OrderRepository orderRepository;
+    private final ItemRepository itemRepository;
+    private final PromotionRepository promotionRepository;
+    private final PriceCalculator priceCalculator;
 
     @Autowired
     public AddOrderCommandExecutor(OrderRepository orderRepository, ItemRepository itemRepository, PromotionRepository promotionRepository, PriceCalculator priceCalculator) {

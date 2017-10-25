@@ -25,8 +25,8 @@ public class ItemController {
     // todo move
     public final static String UUID_REGEX = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 
-    private CommandRunner commandRunner;
-    private QueryRunner queryRunner;
+    private final CommandRunner commandRunner;
+    private final QueryRunner queryRunner;
 
     @Autowired
     public ItemController(CommandRunner commandRunner, QueryRunner queryRunner) {

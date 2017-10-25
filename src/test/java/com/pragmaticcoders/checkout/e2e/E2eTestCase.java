@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public abstract class E2eTestCase {
     private static final String DATABASE = "fongo_db";
 
-    protected MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

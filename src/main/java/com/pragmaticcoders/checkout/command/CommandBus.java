@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Service
 public class CommandBus {
-    private Set<CommandExecutor> executors = new HashSet<>();
+    private final Set<CommandExecutor> executors = new HashSet<>();
 
     @Autowired
     public void registerExecutors(CommandExecutor[] executors) {

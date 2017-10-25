@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class SingleItemQueryExecutor implements QueryExecutor<SingleItemQuery, ItemView> {
 
-    private ItemRepository repository;
+    private final ItemRepository repository;
 
     public SingleItemQueryExecutor(ItemRepository repository) {
         this.repository = repository;

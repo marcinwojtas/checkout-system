@@ -32,6 +32,7 @@ public class CommandBusTest {
         given(executor3.canExecute(command)).willReturn(true);
 
         commandBus.execute(command);
+        //noinspection unchecked
         verify(executor3, times(1)).execute(command);
     }
 

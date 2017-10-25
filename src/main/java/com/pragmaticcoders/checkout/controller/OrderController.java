@@ -19,8 +19,8 @@ import static com.pragmaticcoders.checkout.controller.ItemController.UUID_REGEX;
 @RestController
 public class OrderController {
 
-    private CommandRunner commandRunner;
-    private QueryRunner queryRunner;
+    private final CommandRunner commandRunner;
+    private final QueryRunner queryRunner;
 
     @Autowired
     public OrderController(CommandRunner commandRunner, QueryRunner queryRunner) {

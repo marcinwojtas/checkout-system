@@ -22,8 +22,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class PromotionController {
-    private CommandRunner commandRunner;
-    private QueryRunner queryRunner;
+    private final CommandRunner commandRunner;
+    private final QueryRunner queryRunner;
 
     @Autowired
     public PromotionController(CommandRunner commandRunner, QueryRunner queryRunner) {

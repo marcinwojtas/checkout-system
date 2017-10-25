@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class SingleOrderQueryExecutor implements QueryExecutor<SingleOrderQuery, OrderView> {
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
     public SingleOrderQueryExecutor(OrderRepository orderRepository) {

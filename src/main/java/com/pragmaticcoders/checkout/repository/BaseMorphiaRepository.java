@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class BaseMorphiaRepository<T> implements BaseRepository<T> {
 
-    protected final Datastore datastore;
+    final Datastore datastore;
 
     BaseMorphiaRepository(Datastore datastore) {
         this.datastore = datastore;
@@ -30,6 +30,7 @@ public class BaseMorphiaRepository<T> implements BaseRepository<T> {
     }
 
     private Class<T> getThisObjectClass() {
+        //noinspection unchecked
         return (Class<T>) GenericTypeResolver
             .resolveTypeArgument(getClass(), BaseMorphiaRepository.class);
     }

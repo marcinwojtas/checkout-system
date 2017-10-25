@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class ListItemQueryExecutor implements QueryExecutor<ListItemQuery, List<ItemView>> {
 
-    private ItemRepository repository;
+    private final ItemRepository repository;
 
     @Autowired
     public ListItemQueryExecutor(ItemRepository repository) {

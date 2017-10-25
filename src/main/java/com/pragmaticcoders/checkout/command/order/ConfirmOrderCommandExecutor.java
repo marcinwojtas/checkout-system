@@ -11,7 +11,7 @@ import java.util.UUID;
 @Service
 public class ConfirmOrderCommandExecutor implements CommandExecutor<ConfirmOrderCommand> {
 
-    private OrderRepository repository;
+    private final OrderRepository repository;
 
     @Autowired
     public ConfirmOrderCommandExecutor(OrderRepository repository) {

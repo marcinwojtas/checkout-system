@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class ListPromotionQueryExecutor implements QueryExecutor<ListPromotionQuery, List<PromotionView>> {
 
-    private PromotionRepository repository;
+    private final PromotionRepository repository;
 
     @Autowired
     public ListPromotionQueryExecutor(PromotionRepository repository) {

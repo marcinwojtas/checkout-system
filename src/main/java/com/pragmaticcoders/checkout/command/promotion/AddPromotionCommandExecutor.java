@@ -16,8 +16,8 @@ import java.util.UUID;
 @Service
 public class AddPromotionCommandExecutor implements CommandExecutor<AddPromotionCommand> {
 
-    private PromotionRepository repository;
-    private ItemRepository itemRepository;
+    private final PromotionRepository repository;
+    private final ItemRepository itemRepository;
 
     @Autowired
     public AddPromotionCommandExecutor(PromotionRepository repository, ItemRepository itemRepository) {

@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("dev")
 public class MongoConfiguration {
-    private String host;
-    private String port;
-    private String database;
+    private final String host;
+    private final String port;
+    private final String database;
 
     public MongoConfiguration(
         @Value("${mongo.host}") String host,

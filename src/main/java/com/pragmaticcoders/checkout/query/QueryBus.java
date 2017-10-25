@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class QueryBus {
-    private List<QueryExecutor> executors = new ArrayList<>();
+    private final List<QueryExecutor> executors = new ArrayList<>();
 
     @Autowired
     public void registerExecutors(QueryExecutor[] executors) {
@@ -21,6 +21,7 @@ public class QueryBus {
     ResponseEntity execute(Query query, HttpStatus validResponseCode) throws Exception {
         for (QueryExecutor executor : executors) {
             if (executor.canExecute(query)) {
+                //noinspection unchecked
                 return executor.execute(query, validResponseCode);
             }
         }

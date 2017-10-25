@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class AddItemCommandExecutor implements CommandExecutor<AddItemCommand> {
 
-    private ItemRepository repository;
+    private final ItemRepository repository;
 
     @Autowired
     public AddItemCommandExecutor(ItemRepository repository) {

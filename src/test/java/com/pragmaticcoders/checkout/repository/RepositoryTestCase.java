@@ -16,7 +16,7 @@ public abstract class RepositoryTestCase {
     @Autowired
     Datastore datastore;
 
-    protected void clearDb() {
+    void clearDb() {
         MongoDatabase db = datastore.getMongo().getDatabase("fongo_db");
 
         for (String collection : db.listCollectionNames()) {
