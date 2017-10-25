@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ItemControllerTestCase extends E2eTestCase {
+public class ItemControllerTest extends E2eTestCase {
 
     @Test
     public void createAndGetTest() throws Exception {

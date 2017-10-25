@@ -68,7 +68,7 @@ public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCo
         }
 
         order.setItems(orderItems);
-        order.setPromotions(getActivePromotions());
+        order.setPromotions(getPromotionsForOrder(orderItems));
 
         repository.save(order);
     }
@@ -80,7 +80,18 @@ public class UpdateOrderCommandExecutor implements CommandExecutor<UpdateOrderCo
                 .collect(Collectors.toList()));
     }
 
-    private Set<Promotion> getActivePromotions() {
-        return new HashSet<>(promotionRepository.findAll());
+    private Set<Promotion> getPromotionsForOrder(Collection<Order.OrderItem> orderItems) {
+        List<Promotion> allPromotions = promotionRepository.findAll();
+        Set<Promotion> matchedPromotions;
+
+        Set<Item> items = orderItems.stream()
+            .map(Order.OrderItem::getItem)
+            .collect(Collectors.toSet());
+
+        matchedPromotions = allPromotions.stream()
+            .filter(promotion -> allPromotions.containsAll(items))
+            .collect(Collectors.toSet());
+
+        return matchedPromotions;
     }
 }

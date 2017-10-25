@@ -1,9 +1,6 @@
 package com.pragmaticcoders.checkout.view;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +8,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 public class ItemView {
     private UUID id;
     private String name;
@@ -19,6 +17,7 @@ public class ItemView {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @EqualsAndHashCode
     public static class Price {
         private Integer quantity;
         private Integer price;

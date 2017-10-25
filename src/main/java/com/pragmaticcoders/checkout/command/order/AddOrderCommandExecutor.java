@@ -64,7 +64,7 @@ public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand>
             );
         }
 
-        Order order = new Order(uuid, orderItems, getActivePromotions());
+        Order order = new Order(uuid, orderItems, getPromotionsForOrder(orderItems));
         orderRepository.save(order);
     }
 
@@ -75,7 +75,18 @@ public class AddOrderCommandExecutor implements CommandExecutor<AddOrderCommand>
                 .collect(Collectors.toList()));
     }
 
-    private Set<Promotion> getActivePromotions() {
-        return new HashSet<>(promotionRepository.findAll());
+    private Set<Promotion> getPromotionsForOrder(Collection<Order.OrderItem> orderItems) {
+        List<Promotion> allPromotions = promotionRepository.findAll();
+        Set<Promotion> matchedPromotions;
+
+        Set<Item> items = orderItems.stream()
+            .map(Order.OrderItem::getItem)
+            .collect(Collectors.toSet());
+
+        matchedPromotions = allPromotions.stream()
+            .filter(promotion -> allPromotions.containsAll(items))
+            .collect(Collectors.toSet());
+
+        return matchedPromotions;
     }
 }

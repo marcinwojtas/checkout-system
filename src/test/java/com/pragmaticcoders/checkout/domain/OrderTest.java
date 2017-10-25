@@ -78,7 +78,7 @@ public class OrderTest {
     }
 
     @Test(expected = CannotChangeOrderException.class)
-    public void confirmThrowExceptionTest() throws Exception {
+    public void confirmOnConfirmedThrowExceptionTest() throws Exception {
         UUID uuid = UUID.randomUUID();
         Order order = createOrder(uuid);
 

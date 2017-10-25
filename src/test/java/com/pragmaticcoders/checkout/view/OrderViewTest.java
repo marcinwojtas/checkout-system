@@ -21,6 +21,7 @@ public class OrderViewTest {
                 add(new OrderView.Item(uuidPrice, 20, "foo", 10));
             }},
             200,
+            300,
             "test"
         );
 
@@ -29,7 +30,8 @@ public class OrderViewTest {
         assertEquals(Integer.valueOf(20), view.getItems().get(0).getQuantity());
         assertEquals(Integer.valueOf(10), view.getItems().get(0).getPrice());
         assertEquals("foo", view.getItems().get(0).getName());
-        assertEquals(Integer.valueOf(200), view.getTotalPrice());
+        assertEquals(Integer.valueOf(300), view.getTotalPrice());
+        assertEquals(Integer.valueOf(200), view.getDiscount());
         assertEquals("test", view.getStatus());
 
     }

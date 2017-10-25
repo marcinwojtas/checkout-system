@@ -101,24 +101,6 @@ public class PromotionControllerTest extends E2eTestCase {
             .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
-    private ResultActions addPromotion(List<UUID> uuids, Integer discount) throws Exception {
-        JSONArray items = new JSONArray();
-
-        for (UUID uuid : uuids) {
-            items.put(uuid);
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("discount", discount);
-        jsonObject.put("items", items);
-
-        return mockMvc.perform(
-            post("/promotion")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(jsonObject.toString())
-        );
-    }
-
     private ResultActions getPromotion(String id) throws Exception {
         return mockMvc.perform(
             get("/promotion/" + id)

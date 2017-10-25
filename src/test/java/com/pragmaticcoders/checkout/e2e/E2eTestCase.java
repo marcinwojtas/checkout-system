@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -74,6 +75,31 @@ public abstract class E2eTestCase {
 
     UUID addItemAndGetUUID(String name, Map<Integer, Integer> prices) throws Exception {
         String response = addItem(name, prices).andReturn().getResponse().getContentAsString();
+        String id = new JSONObject(response).get("id").toString();
+
+        return UUID.fromString(id);
+    }
+
+    ResultActions addPromotion(List<UUID> uuids, Integer discount) throws Exception {
+        JSONArray items = new JSONArray();
+
+        for (UUID uuid : uuids) {
+            items.put(uuid);
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("discount", discount);
+        jsonObject.put("items", items);
+
+        return mockMvc.perform(
+            post("/promotion")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jsonObject.toString())
+        );
+    }
+
+    UUID addPromotionAdGetUUID(List<UUID> uuids, Integer discount) throws Exception {
+        String response = addPromotion(uuids, discount).andReturn().getResponse().getContentAsString();
         String id = new JSONObject(response).get("id").toString();
 
         return UUID.fromString(id);

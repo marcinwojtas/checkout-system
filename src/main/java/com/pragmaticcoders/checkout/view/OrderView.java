@@ -11,6 +11,7 @@ import java.util.UUID;
 public class OrderView {
     private UUID id;
     private List<Item> items;
+    private Integer discount;
     private Integer totalPrice;
     private String status;
 

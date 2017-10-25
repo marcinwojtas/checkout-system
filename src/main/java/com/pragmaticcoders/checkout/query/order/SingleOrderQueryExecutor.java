@@ -1,6 +1,7 @@
 package com.pragmaticcoders.checkout.query.order;
 
 import com.pragmaticcoders.checkout.domain.Order;
+import com.pragmaticcoders.checkout.domain.Promotion;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.OrderRepository;
 import com.pragmaticcoders.checkout.view.OrderView;
@@ -36,10 +37,16 @@ public class SingleOrderQueryExecutor implements QueryExecutor<SingleOrderQuery,
             ))
             .collect(Collectors.toList());
 
+        Integer discount = 0;
+
+        for (Promotion promotion : order.getPromotions()) {
+            discount += promotion.getDiscount();
+        }
 
         OrderView view = new OrderView(
             order.getId(),
             items,
+            discount,
             order.getPrice(),
             order.getStatus().toString()
         );
