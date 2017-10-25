@@ -73,7 +73,7 @@ public abstract class E2eTestCase {
     }
 
     UUID addItemAndGetUUID(String name, Map<Integer, Integer> prices) throws Exception {
-        String response = addItem(name,prices).andReturn().getResponse().getContentAsString();
+        String response = addItem(name, prices).andReturn().getResponse().getContentAsString();
         String id = new JSONObject(response).get("id").toString();
 
         return UUID.fromString(id);

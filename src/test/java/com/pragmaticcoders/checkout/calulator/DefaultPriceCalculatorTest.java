@@ -37,8 +37,8 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "few-price",
             new ArrayList<Price>() {{
-                add(new Price(12,1));
-                add(new Price(20,2));
+                add(new Price(12, 1));
+                add(new Price(20, 2));
             }}
         );
 
@@ -51,9 +51,9 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "few-price",
             new ArrayList<Price>() {{
-                add(new Price(12,1));
-                add(new Price(20,2));
-                add(new Price(50,5));
+                add(new Price(12, 1));
+                add(new Price(20, 2));
+                add(new Price(50, 5));
             }}
         );
 
@@ -77,7 +77,7 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "one-price",
             new ArrayList<Price>() {{
-                add(new Price(1,2));
+                add(new Price(1, 2));
             }}
         );
 

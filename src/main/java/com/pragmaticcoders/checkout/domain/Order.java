@@ -55,7 +55,7 @@ public class Order {
         calculate();
     }
 
-    public void setPromotions(Set<Promotion> promotions){
+    public void setPromotions(Set<Promotion> promotions) {
         this.promotions = new HashSet<>(promotions);
         calculate();
     }

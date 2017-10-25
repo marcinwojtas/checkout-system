@@ -1,9 +1,9 @@
 package com.pragmaticcoders.checkout.query.item;
 
-import com.pragmaticcoders.checkout.view.ItemView;
 import com.pragmaticcoders.checkout.domain.Item;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.ItemRepository;
+import com.pragmaticcoders.checkout.view.ItemView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

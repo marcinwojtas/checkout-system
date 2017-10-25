@@ -1,9 +1,9 @@
 package com.pragmaticcoders.checkout.query.order;
 
-import com.pragmaticcoders.checkout.view.OrderView;
 import com.pragmaticcoders.checkout.domain.Order;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.OrderRepository;
+import com.pragmaticcoders.checkout.view.OrderView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

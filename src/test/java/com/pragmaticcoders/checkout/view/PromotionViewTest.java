@@ -3,10 +3,10 @@ package com.pragmaticcoders.checkout.view;
 import org.junit.Test;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PromotionViewTest {
 

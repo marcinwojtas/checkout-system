@@ -2,9 +2,9 @@ package com.pragmaticcoders.checkout.query.promotion;
 
 import com.pragmaticcoders.checkout.domain.Item;
 import com.pragmaticcoders.checkout.domain.Promotion;
-import com.pragmaticcoders.checkout.view.PromotionView;
 import com.pragmaticcoders.checkout.query.QueryExecutor;
 import com.pragmaticcoders.checkout.repository.PromotionRepository;
+import com.pragmaticcoders.checkout.view.PromotionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
