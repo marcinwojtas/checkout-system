@@ -36,10 +36,12 @@ public class OrderControllerTest extends E2eTestCase {
             discount
         );
 
-        String result = addOrder(new HashMap<String, Integer>() {{
+        Map<String, Integer> itemsMap = new HashMap<String, Integer>() {{
             put(uuid1.toString(), 2);
             put(uuid2.toString(), 1);
-        }})
+        }};
+
+        String result = addOrder(itemsMap)
             .andExpect(status().is(HttpStatus.CREATED.value()))
             .andExpect(jsonPath("$.total_price").value(18))
             .andExpect(jsonPath("$.discount").value(2))
@@ -81,10 +83,12 @@ public class OrderControllerTest extends E2eTestCase {
             discount
         );
 
-        String result = addOrder(new HashMap<String, Integer>() {{
+        Map<String, Integer> itemsMap = new HashMap<String, Integer>() {{
             put(uuid1.toString(), 2);
             put(uuid2.toString(), 1);
-        }})
+        }};
+
+        String result = addOrder(itemsMap)
             .andExpect(status().is(HttpStatus.CREATED.value()))
             .andReturn()
             .getResponse()
@@ -92,10 +96,12 @@ public class OrderControllerTest extends E2eTestCase {
 
         String id = new JSONObject(result).get("id").toString();
 
-        updateOrder(id, new HashMap<String, Integer>() {{
+        itemsMap = new HashMap<String, Integer>() {{
             put(uuid1.toString(), 2);
             put(uuid3.toString(), 5);
-        }}).andExpect(status().is(HttpStatus.OK.value()))
+        }};
+        updateOrder(id, itemsMap)
+            .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(jsonPath("$.total_price").value(37))
             .andExpect(jsonPath("$.items.length()").value(2))
             .andExpect(jsonPath("$.discount").value(0))
@@ -119,9 +125,10 @@ public class OrderControllerTest extends E2eTestCase {
             discount
         );
 
-        String result = addOrder(new HashMap<String, Integer>() {{
+        Map<String, Integer> itemsMap = new HashMap<String, Integer>() {{
             put(uuid2.toString(), 1);
-        }})
+        }};
+        String result = addOrder(itemsMap)
             .andExpect(status().is(HttpStatus.CREATED.value()))
             .andReturn()
             .getResponse()

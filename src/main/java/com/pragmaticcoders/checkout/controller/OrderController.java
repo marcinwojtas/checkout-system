@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-import static com.pragmaticcoders.checkout.controller.ItemController.UUID_REGEX;
-
 @RestController
 public class OrderController extends BaseController {
 
