@@ -1,5 +1,19 @@
 ### Simple checkout system
 
+### Getting started
+build, test and run:
+
+```
+./gradlew build
+docker-compose up -d
+```
+
+And app is running on:
+
+`localhost`
+
+
+
 ## Items
 Add new item:
 

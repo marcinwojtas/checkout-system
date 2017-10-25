@@ -4,6 +4,6 @@ spring:
   profiles:
     active: dev
 mongo:
-  host: localhost
+  host: db
   port: 27017
   database: checkout
