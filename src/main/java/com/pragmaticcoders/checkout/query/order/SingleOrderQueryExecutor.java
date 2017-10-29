@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,10 +38,10 @@ public class SingleOrderQueryExecutor implements QueryExecutor<SingleOrderQuery,
             ))
             .collect(Collectors.toList());
 
-        Integer discount = 0;
+        BigDecimal discount = BigDecimal.ZERO;
 
         for (Promotion promotion : order.getPromotions()) {
-            discount += promotion.getDiscount();
+            discount = discount.add(promotion.getDiscount());
         }
 
         OrderView view = new OrderView(

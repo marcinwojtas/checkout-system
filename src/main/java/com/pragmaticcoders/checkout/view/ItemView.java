@@ -2,6 +2,7 @@ package com.pragmaticcoders.checkout.view;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,6 @@ public class ItemView {
     @EqualsAndHashCode
     public static class Price {
         private Integer quantity;
-        private Integer price;
+        private BigDecimal price;
     }
 }

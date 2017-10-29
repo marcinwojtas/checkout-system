@@ -5,6 +5,7 @@ import com.pragmaticcoders.checkout.domain.Price;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid = UUID.randomUUID();
         String name = "foo";
         List<Price> prices = new ArrayList<Price>() {{
-            add(new Price(1, 10));
+            add(new Price(BigDecimal.valueOf(1), 10));
         }};
 
         repository.save(new Item(uuid, name, prices));
@@ -44,7 +45,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid = UUID.randomUUID();
         String name = "foo";
         List<Price> prices = new ArrayList<Price>() {{
-            add(new Price(1, 10));
+            add(new Price(BigDecimal.valueOf(1), 10));
         }};
 
         datastore.save(new Item(uuid, name, prices));
@@ -61,7 +62,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid1 = UUID.randomUUID();
         String name1 = "foo";
         List<Price> prices1 = new ArrayList<Price>() {{
-            add(new Price(100, 1));
+            add(new Price(BigDecimal.valueOf(100), 1));
         }};
         Item item1 = new Item(uuid1, name1, prices1);
         datastore.save(item1);
@@ -69,7 +70,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid2 = UUID.randomUUID();
         String name2 = "bar";
         List<Price> prices2 = new ArrayList<Price>() {{
-            add(new Price(200, 2));
+            add(new Price(BigDecimal.valueOf(200), 2));
         }};
         Item item2 = new Item(uuid2, name2, prices2);
         datastore.save(item2);
@@ -91,7 +92,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid1 = UUID.randomUUID();
         String name1 = "foo";
         List<Price> prices1 = new ArrayList<Price>() {{
-            add(new Price(100, 1));
+            add(new Price(BigDecimal.valueOf(100), 1));
         }};
         Item item1 = new Item(uuid1, name1, prices1);
         datastore.save(item1);
@@ -99,7 +100,7 @@ public class ItemMorphiaRepositoryTest extends RepositoryTestCase {
         UUID uuid2 = UUID.randomUUID();
         String name2 = "bar";
         List<Price> prices2 = new ArrayList<Price>() {{
-            add(new Price(200, 2));
+            add(new Price(BigDecimal.valueOf(200), 2));
         }};
         Item item2 = new Item(uuid2, name2, prices2);
         datastore.save(item2);

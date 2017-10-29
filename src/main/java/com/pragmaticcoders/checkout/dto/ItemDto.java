@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,6 +32,6 @@ public class ItemDto {
         @NotNull
         private Integer quantity;
         @NotNull
-        private Integer price;
+        private BigDecimal price;
     }
 }

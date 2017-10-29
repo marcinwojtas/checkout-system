@@ -4,6 +4,7 @@ import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
@@ -21,7 +22,7 @@ public class Order {
     public static class OrderItem {
         private Integer quantity;
         private Item item;
-        private Integer totalCost;
+        private BigDecimal totalCost;
     }
 
     @Id
@@ -31,7 +32,7 @@ public class Order {
     private List<OrderItem> items;
 
     @Getter
-    private Integer price;
+    private BigDecimal price;
 
     private Set<Promotion> promotions = new HashSet<>();
 
@@ -73,14 +74,14 @@ public class Order {
     }
 
     private void calculate() {
-        Integer price = 0;
+        BigDecimal price = BigDecimal.ZERO;
 
         for (OrderItem item : items) {
-            price += item.getTotalCost();
+            price = price.add(item.getTotalCost());
         }
 
         for (Promotion promotion : promotions) {
-            price -= promotion.getDiscount();
+            price = price.subtract(promotion.getDiscount());
         }
 
         this.price = price;

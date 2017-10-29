@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -96,8 +97,8 @@ public class AddOrderCommandExecutorTest {
             }}
         );
 
-        given(priceCalculator.calcCostOfItem(item1, 1)).willReturn(10);
-        given(priceCalculator.calcCostOfItem(item2, 2)).willReturn(13);
+        given(priceCalculator.calcCostOfItem(item1, 1)).willReturn(BigDecimal.valueOf(10));
+        given(priceCalculator.calcCostOfItem(item2, 2)).willReturn(BigDecimal.valueOf(13));
 
 
         executor.execute(command);
@@ -108,6 +109,6 @@ public class AddOrderCommandExecutorTest {
         assertEquals(uuid, order.getId());
         assertEquals(Order.Status.ORDERING, order.getStatus());
         assertEquals(order.getItems().size(), 2);
-        assertEquals(order.getPrice(), Integer.valueOf(23));
+        assertEquals(order.getPrice(), BigDecimal.valueOf(23));
     }
 }

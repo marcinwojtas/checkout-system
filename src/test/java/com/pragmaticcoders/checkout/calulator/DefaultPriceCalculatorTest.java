@@ -5,6 +5,7 @@ import com.pragmaticcoders.checkout.domain.Price;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -21,14 +22,14 @@ public class DefaultPriceCalculatorTest {
 
     @Test
     public void onePriceOneQuantityPriceTest() throws Exception {
-        Item item = getItemWithOnePrice(14);
-        assertEquals(Integer.valueOf(14), priceCalculator.calcCostOfItem(item, 1));
+        Item item = getItemWithOnePrice(BigDecimal.valueOf(14));
+        assertEquals(BigDecimal.valueOf(14), priceCalculator.calcCostOfItem(item, 1));
     }
 
     @Test
     public void onePriceFewQuantityPriceTest() throws Exception {
-        Item item = getItemWithOnePrice(14);
-        assertEquals(Integer.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
+        Item item = getItemWithOnePrice(BigDecimal.valueOf(14));
+        assertEquals(BigDecimal.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
     }
 
     @Test
@@ -37,12 +38,12 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "few-price",
             new ArrayList<Price>() {{
-                add(new Price(12, 1));
-                add(new Price(20, 2));
+                add(new Price(BigDecimal.valueOf(12), 1));
+                add(new Price(BigDecimal.valueOf(20), 2));
             }}
         );
 
-        assertEquals(Integer.valueOf(60), priceCalculator.calcCostOfItem(item, 6));
+        assertEquals(BigDecimal.valueOf(60), priceCalculator.calcCostOfItem(item, 6));
     }
 
     @Test
@@ -51,13 +52,13 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "few-price",
             new ArrayList<Price>() {{
-                add(new Price(12, 1));
-                add(new Price(20, 2));
-                add(new Price(50, 5));
+                add(new Price(BigDecimal.valueOf(12), 1));
+                add(new Price(BigDecimal.valueOf(20), 2));
+                add(new Price(BigDecimal.valueOf(50), 5));
             }}
         );
 
-        assertEquals(Integer.valueOf(70), priceCalculator.calcCostOfItem(item, 7));
+        assertEquals(BigDecimal.valueOf(70), priceCalculator.calcCostOfItem(item, 7));
     }
 
     @Test(expected = InvalidPriceException.class)
@@ -68,7 +69,7 @@ public class DefaultPriceCalculatorTest {
             new ArrayList<>()
         );
 
-        assertEquals(Integer.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
+        assertEquals(BigDecimal.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
     }
 
     @Test(expected = InvalidPriceException.class)
@@ -77,14 +78,14 @@ public class DefaultPriceCalculatorTest {
             UUID.randomUUID(),
             "one-price",
             new ArrayList<Price>() {{
-                add(new Price(1, 2));
+                add(new Price(BigDecimal.valueOf(1), 2));
             }}
         );
 
-        assertEquals(Integer.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
+        assertEquals(BigDecimal.valueOf(3 * 14), priceCalculator.calcCostOfItem(item, 3));
     }
 
-    private Item getItemWithOnePrice(Integer price) {
+    private Item getItemWithOnePrice(BigDecimal price) {
         return new Item(
             UUID.randomUUID(),
             "one-price",

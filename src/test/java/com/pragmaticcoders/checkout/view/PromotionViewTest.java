@@ -2,6 +2,7 @@ package com.pragmaticcoders.checkout.view;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class PromotionViewTest {
                 add(itemUuid1);
                 add(itemUuid2);
             }},
-            2
+            BigDecimal.valueOf(2)
         );
 
         assertEquals(uuid, view.getId());

@@ -2,11 +2,13 @@ package com.pragmaticcoders.checkout.domain;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class OrderTest {
@@ -22,7 +24,7 @@ public class OrderTest {
         assertEquals(uuid, order.getId());
         assertEquals(1, order.getItems().size());
         assertEquals(1, order.getPromotions().size());
-        assertEquals(Integer.valueOf(2), order.getPrice());
+        assertEquals(BigDecimal.valueOf(2), order.getPrice());
         assertEquals(Order.Status.ORDERING, order.getStatus());
     }
 
@@ -36,7 +38,7 @@ public class OrderTest {
                 add(new Order.OrderItem(
                     1,
                     mock(Item.class),
-                    100
+                    BigDecimal.valueOf(100)
                 ));
             }}
         );
@@ -49,7 +51,7 @@ public class OrderTest {
                         new HashSet<Item>() {{
                             add(mock(Item.class));
                         }},
-                        1
+                        BigDecimal.valueOf(1)
                     )
                 );
             }}
@@ -59,7 +61,7 @@ public class OrderTest {
         assertEquals(uuid, order.getId());
         assertEquals(1, order.getItems().size());
         assertEquals(1, order.getPromotions().size());
-        assertEquals(Integer.valueOf(99), order.getPrice());
+        assertEquals(BigDecimal.valueOf(99), order.getPrice());
         assertEquals(Order.Status.ORDERING, order.getStatus());
     }
 
@@ -73,7 +75,7 @@ public class OrderTest {
         assertEquals(uuid, order.getId());
         assertEquals(1, order.getItems().size());
         assertEquals(1, order.getPromotions().size());
-        assertEquals(Integer.valueOf(2), order.getPrice());
+        assertEquals(BigDecimal.valueOf(2), order.getPrice());
         assertEquals(Order.Status.PAYMENT, order.getStatus());
     }
 
@@ -107,17 +109,21 @@ public class OrderTest {
     }
 
     private Order createOrder(UUID uuid) {
+
+        Promotion promotion = mock(Promotion.class);
+        given(promotion.getDiscount()).willReturn(BigDecimal.ZERO);
+
         return new Order(
             uuid,
             new ArrayList<Order.OrderItem>() {{
                 add(new Order.OrderItem(
                     1,
                     mock(Item.class),
-                    2
+                    BigDecimal.valueOf(2)
                 ));
             }},
             new HashSet<Promotion>() {{
-                add(mock(Promotion.class));
+                add(promotion);
             }}
         );
     }

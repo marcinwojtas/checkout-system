@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.UUID;
@@ -49,7 +50,7 @@ public class AddPromotionCommandExecutorTest {
                 add(uuid1);
                 add(uuid2);
             }},
-            20
+            BigDecimal.valueOf(20)
         );
 
         given(itemRepository.find(new HashSet<UUID>() {{
@@ -69,7 +70,7 @@ public class AddPromotionCommandExecutorTest {
 
         assertEquals(promotion.getId(), promotionUuid);
         assertEquals(2, promotion.getItems().size());
-        assertEquals(Integer.valueOf(20), promotion.getDiscount());
+        assertEquals(BigDecimal.valueOf(20), promotion.getDiscount());
     }
 
 

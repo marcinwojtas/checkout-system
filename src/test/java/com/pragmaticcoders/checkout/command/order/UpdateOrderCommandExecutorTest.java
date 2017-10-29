@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -77,19 +78,25 @@ public class UpdateOrderCommandExecutorTest {
         given(item1.getId()).willReturn(itemUuid1);
         given(item2.getId()).willReturn(itemUuid2);
 
+        Promotion promotion = mock(Promotion.class);
+        given(promotion.getDiscount()).willReturn(BigDecimal.ZERO);
+
+        Order.OrderItem orderItem = mock(Order.OrderItem.class);
+        given(orderItem.getTotalCost()).willReturn(BigDecimal.ZERO);
+
         Order order = new Order(
             uuid,
             new ArrayList<Order.OrderItem>() {{
-                add(mock(Order.OrderItem.class));
+                add(orderItem);
             }},
-            new HashSet<>()
+            new HashSet<Promotion>() {{
+                add(promotion);
+            }}
         );
 
         given(orderRepository.findOne(uuid)).willReturn(order);
 
         UpdateOrderCommand command = new UpdateOrderCommand(uuid, dto);
-
-        Promotion promotion = mock(Promotion.class);
 
         given(promotionRepository.findAll()).willReturn(
             new ArrayList<Promotion>() {{
@@ -104,8 +111,8 @@ public class UpdateOrderCommandExecutorTest {
             }}
         );
 
-        given(priceCalculator.calcCostOfItem(item1, 1)).willReturn(10);
-        given(priceCalculator.calcCostOfItem(item2, 2)).willReturn(13);
+        given(priceCalculator.calcCostOfItem(item1, 1)).willReturn(BigDecimal.valueOf(10));
+        given(priceCalculator.calcCostOfItem(item2, 2)).willReturn(BigDecimal.valueOf(13));
 
 
         executor.execute(command);
@@ -116,6 +123,6 @@ public class UpdateOrderCommandExecutorTest {
         assertEquals(uuid, result.getId());
         assertEquals(Order.Status.ORDERING, result.getStatus());
         assertEquals(result.getItems().size(), 2);
-        assertEquals(result.getPrice(), Integer.valueOf(23));
+        assertEquals(result.getPrice(), BigDecimal.valueOf(23));
     }
 }

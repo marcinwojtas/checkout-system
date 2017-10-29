@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,5 +15,5 @@ import java.util.UUID;
 public class PromotionView {
     private UUID id;
     private Set<UUID> items;
-    private Integer discount;
+    private BigDecimal discount;
 }

@@ -6,6 +6,7 @@ import com.pragmaticcoders.checkout.domain.Promotion;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -28,7 +29,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
             add(getItem());
             add(getItem());
         }};
-        Integer discount = 40;
+        BigDecimal discount = BigDecimal.valueOf(40);
 
         repository.save(new Promotion(uuid, items, discount));
 
@@ -46,7 +47,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
             add(getItem());
             add(getItem());
         }};
-        Integer discount = 40;
+        BigDecimal discount = BigDecimal.valueOf(40);
 
         datastore.save(new Promotion(uuid, items, discount));
 
@@ -64,7 +65,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
             add(getItem());
             add(getItem());
         }};
-        Integer discount1 = 40;
+        BigDecimal discount1 = BigDecimal.valueOf(40);
 
         Promotion promotion1 = new Promotion(uuid1, items1, discount1);
 
@@ -75,7 +76,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
             add(getItem());
             add(getItem());
         }};
-        Integer discount2 = 50;
+        BigDecimal discount2 = BigDecimal.valueOf(50);
 
         Promotion promotion2 = new Promotion(uuid2, items2, discount2);
 
@@ -98,7 +99,7 @@ public class PromotionMorphiaRepositoryTest extends RepositoryTestCase {
             UUID.randomUUID(),
             "foo",
             new ArrayList<Price>() {{
-                add(new Price(1, 1));
+                add(new Price(BigDecimal.valueOf(1), 1));
             }}
         );
     }

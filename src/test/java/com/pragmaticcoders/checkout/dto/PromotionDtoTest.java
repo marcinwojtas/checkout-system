@@ -2,6 +2,7 @@ package com.pragmaticcoders.checkout.dto;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -15,10 +16,10 @@ public class PromotionDtoTest {
                 add(UUID.randomUUID());
                 add(UUID.randomUUID());
             }},
-            40
+            BigDecimal.valueOf(40)
         );
 
-        assertEquals(Integer.valueOf(40), dto.getDiscount());
+        assertEquals(BigDecimal.valueOf(40), dto.getDiscount());
         assertEquals(2, dto.getItems().size());
     }
 }

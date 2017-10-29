@@ -4,6 +4,7 @@ import lombok.*;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class Promotion {
     private Set<Item> items;
 
     @Getter
-    private Integer discount;
+    private BigDecimal discount;
 
     public Set<Item> getItems() {
         return new HashSet<>(items);

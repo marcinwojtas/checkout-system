@@ -3,6 +3,7 @@ package com.pragmaticcoders.checkout.view;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,8 +12,8 @@ import java.util.UUID;
 public class OrderView {
     private UUID id;
     private List<Item> items;
-    private Integer discount;
-    private Integer totalPrice;
+    private BigDecimal discount;
+    private BigDecimal totalPrice;
     private String status;
 
     @AllArgsConstructor
@@ -21,6 +22,6 @@ public class OrderView {
         private UUID id;
         private Integer quantity;
         private String name;
-        private Integer price;
+        private BigDecimal price;
     }
 }

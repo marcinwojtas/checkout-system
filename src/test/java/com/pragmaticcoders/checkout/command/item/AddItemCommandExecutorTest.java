@@ -12,6 +12,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -41,8 +42,8 @@ public class AddItemCommandExecutorTest {
         ItemDto dto = new ItemDto(
             "foo",
             new ArrayList<ItemDto.Price>() {{
-                add(new ItemDto.Price(1, 1));
-                add(new ItemDto.Price(2, 10));
+                add(new ItemDto.Price(1, BigDecimal.valueOf(1)));
+                add(new ItemDto.Price(2, BigDecimal.valueOf(10)));
             }}
         );
 
@@ -50,8 +51,8 @@ public class AddItemCommandExecutorTest {
             uuid,
             "foo",
             new ArrayList<Price>() {{
-                add(new Price(1, 1));
-                add(new Price(10, 2));
+                add(new Price(BigDecimal.valueOf(1), 1));
+                add(new Price(BigDecimal.valueOf(10), 2));
             }}
         );
 
